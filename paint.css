@@ -1,6 +1,6 @@
 body
 {
-	font-family:Arial;
+	font-family:Helvetica,Arial, Sans-serif;
 	text-align:center;
 	margin-top:20px;
 }
@@ -38,7 +38,17 @@ body
 	padding:0;
 	margin:0;
 }
+
 /* IDs  */
+#basicPanel {
+	left: 663px;
+	top: 10px;
+	width: 195px;
+	height: 388px;
+	background: #f0f0f0;
+	border: 1px solid #DDD;
+	border-radius: 0px 10px 0px 0px;
+}
 #fillPalette
 {
 	top:10px;
@@ -115,13 +125,14 @@ body
 }
 #page
 {
-	margin:auto auto;
-	border:1px solid #999;
-	width:870px;
-	height:500px;
-	text-align:left;
-	position:relative;
-	background:#ccc;
+	margin: auto auto;
+	border: 1px solid #DDD;
+	width: 870px;
+	height: 500px;
+	text-align: left;
+	position: relative;
+	background: #F5F5F5;
+	border-radius: 10px;
 }
 #canvas
 {
@@ -132,7 +143,7 @@ body
 	width:640px;
 	height:480px;
 	background-color:white;
-	border:1px solid black;
+	border: 1px solid #DDD;
 }
 #potentialCanvasBox
 {
