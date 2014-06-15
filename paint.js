@@ -1,3 +1,5 @@
+
+
 var MouseDownX = null;
 var MouseDownY = null;
 var MouseUpX = null;
@@ -8,14 +10,14 @@ var strokeColorSameAsFillColor = true;
 
 function onCanvasMouseDown(event)
 {
-	var objectDimensions = Element.getDimensions($('canvas'));
-	var objectPosition = Position.cumulativeOffset($('canvas'));	
+	var objectPosition = $('#canvas').offset();	
 	var cursor = getCursorPosition(event);
-	MouseDownX = Math.min(Math.max(cursor.x - objectPosition[0] - 2,0), objectPosition[0] + objectDimensions.width - 4);
-	MouseDownY = Math.min(Math.max(cursor.y - objectPosition[1] - 2,0), objectPosition[1] + objectDimensions.height - 4);
+	MouseDownX = Math.min(Math.max(cursor.x - objectPosition.left - 2,0), objectPosition.left + $('#canvas').width() - 4);
+	MouseDownY = Math.min(Math.max(cursor.y - objectPosition.top - 2,0), objectPosition.top + $('#canvas').height() - 4);
 
 	MouseUpX = null;
 	MouseUpY = null;
+	$('#potentialCanvasBox').css('display', "block")
 }
 
 function onDocumentMouseUp(event){	
@@ -23,11 +25,11 @@ function onDocumentMouseUp(event){
 
 	if(MouseDownX != null && MouseDownY != null)
 	{
-		var objectPosition = Position.cumulativeOffset($('canvas'));
-		var objectDimensions = Element.getDimensions($('canvas'));
+		var objectPosition = $('#canvas').offset();	
+		
 		var cursor = getCursorPosition(event);
-		x2 = Math.min(Math.max(cursor.x - objectPosition[0] - 2,0),objectDimensions.width-3);
-		y2 = Math.min(Math.max(cursor.y - objectPosition[1] - 2,0),objectDimensions.height-3);
+		x2 = Math.min(Math.max(cursor.x - objectPosition.left - 2,0),$('#canvas').width()-3);
+		y2 = Math.min(Math.max(cursor.y - objectPosition.top - 2,0),$('#canvas').height()-3);
 		MouseUpX = x2;
 		MouseUpY = y2;
 
@@ -38,14 +40,14 @@ function onDocumentMouseUp(event){
 			thisBox.fromY = MouseDownY;
 			thisBox.toX = MouseUpX;
 			thisBox.toY = MouseUpY;
-			thisBox.fillColor = $('currentFillColor').style.backgroundColor;
+			thisBox.fillColor = $('#currentFillColor').css('backgroundColor');
 			if(strokeColorSameAsFillColor)
 				thisBox.strokeColor = thisBox.fillColor;
 			else
-				thisBox.strokeColor = $('currentStrokeColor').style.backgroundColor;
+				thisBox.strokeColor = $('#currentStrokeColor').css('backgroundColor');
 			allCanvasElements.push(thisBox);
 			undoElement = null;
-			drawBoxes();
+			redrawBoxes();
 		}
 	}
 
@@ -63,11 +65,11 @@ function onDocumentMouseMove(event)
 		var x1 = MouseDownX;
 		var y1 = MouseDownY;
 		
-		var objectPosition = Position.cumulativeOffset($('canvas'));
-		var objectDimensions = Element.getDimensions($('canvas'));
+		var objectPosition = $('#canvas').offset();
+		
 		var cursor = getCursorPosition(event);
-		x2 = Math.min(Math.max(cursor.x - objectPosition[0] - 2,0),objectDimensions.width-3);
-		y2 = Math.min(Math.max(cursor.y - objectPosition[1] - 2,0),objectDimensions.height-3);
+		x2 = Math.min(Math.max(cursor.x - objectPosition.left - 2,0), $('#canvas').width()-3);
+		y2 = Math.min(Math.max(cursor.y - objectPosition.top - 2,0), $('#canvas').height()-3);
 		
 		if(x2 != null && y2 != null)
 		{
@@ -84,26 +86,25 @@ function onDocumentMouseMove(event)
 				y2=swap;
 			} 
 
-			var thisBox = $('potentialCanvasBox');
-			if(thisBox == null)
+			var thisBox = $('#potentialCanvasBox');
+			if(thisBox.length == 0)
 			{
-				thisBox = document.createElement('div');
-				thisBox.id = 'potentialCanvasBox';
-				$('canvas').appendChild(thisBox);
+				thisBox = $('<div id="potentialCanvasBox"></div>)');
+				$('#canvas').append(thisBox);
 			}
 
-			thisBox.style.display = "block";
-			thisBox.style.left = x1 + "px";
-			thisBox.style.top = y1 + "px";
-			thisBox.style.width = Math.max((x2 - x1 - 1),0) + "px";
-			thisBox.style.height = Math.max((y2 - y1 - 1),0) + "px";
+			thisBox.css('display', "block");
+			thisBox.css('left', x1 + "px");
+			thisBox.css('top', y1 + "px");
+			thisBox.css('width', Math.max((x2 - x1 - 1),0) + "px");
+			thisBox.css('height', Math.max((y2 - y1 - 1),0) + "px");
 		}
 	}
 }
 
 function drawVectorCoordinates()
 {
-	var canvas = $('stats');
+	var canvas = $('#stats');
 	var coords = "<font face=\"courier\">";
 	for(var counter = 0; counter < allCanvasElements.length;counter++)
 	{
@@ -118,10 +119,10 @@ function drawVectorCoordinates()
 	canvas.innerHTML = coords;
 
 }
-function drawBoxes()
+function redrawBoxes()
 {
-	var canvas = $('canvas');
-	clearCanvas(canvas);
+	var canvas = $('#canvas');
+	canvas.html("");
 	for(var counter = 0; counter < allCanvasElements.length;counter++)
 	{
 		var thisBox = allCanvasElements[counter];
@@ -131,17 +132,10 @@ function drawBoxes()
 					drawBox(canvas,thisBox.fromX, thisBox.fromY, thisBox.toX, thisBox.toY, thisBox.fillColor, thisBox.strokeColor);
 	}
 }
-function clearCanvas(parent)
-{
-	parent.innerHTML = "";
-}
+
 function clearPotentialCanvasBox()
 {
-	var thisBox = $('potentialCanvasBox');
-	if(thisBox != null)
-	{
-		thisBox.style.display = "none";
-	}
+	$('#potentialCanvasBox').css('display', "none");
 }
 function drawPixel(parent, x, y)
 {
@@ -163,27 +157,28 @@ function drawBox(parent, x1, y1, x2, y2, fillColor, strokeColor)
 			y2=swap;
 		} 
 
-	parent.innerHTML = parent.innerHTML + "<div class=\"element_box\" style=\"top:" + y1 + "px;left:" + x1 + "px;width:" + (x2 - x1 - 1) + "px;height:" + (y2 - y1 - 1) + "px;background-color:" + fillColor + ";border: 1px solid " + strokeColor + "\"></div>";
+	parent.append($("<div class=\"element_box\" style=\"top:" + y1 + "px;left:" + x1 + "px;width:" + (x2 - x1 - 1) + "px;height:" + (y2 - y1 - 1) + "px;background-color:" + fillColor + ";border: 1px solid " + strokeColor + "\"></div>"));
 }
 function switchFillColor(newColorPaletteCell)
 {
-	$('currentFillColor').style.backgroundColor = newColorPaletteCell.style.backgroundColor;
-	if(strokeColorSameAsFillColor)
-		$('currentStrokeColor').style.backgroundColor = newColorPaletteCell.style.backgroundColor;
+	$('#currentFillColor').css('backgroundColor', newColorPaletteCell.style.backgroundColor);
+	if(strokeColorSameAsFillColor) {
+		$('#currentStrokeColor').css('backgroundColor', newColorPaletteCell.style.backgroundColor);
+	}
 
 }
 
 function switchStrokeColor(newColorPaletteCell)
 {
-	$('currentStrokeColor').style.backgroundColor = newColorPaletteCell.style.backgroundColor;
-	$('currentStrokeColor').innerHTML = "&nbsp;";
+	$('#currentStrokeColor').css('backgroundColor', newColorPaletteCell.style.backgroundColor);
+	$('#currentStrokeColor').innerHTML = "&nbsp;";
 	strokeColorSameAsFillColor = false;
 }
 
 function switchStrokeColorSameAsFillColor()
 {
-	$('currentStrokeColor').style.backgroundColor = $('currentFillColor').style.backgroundColor;
-	$('currentStrokeColor').innerHTML = "Same as fill color";
+	$('#currentStrokeColor').css('backgroundColor', $('#currentFillColor').css('backgroundColor'));
+	$('#currentStrokeColor').html("Same as fill color");
 	strokeColorSameAsFillColor = true;
 }
 
@@ -197,7 +192,7 @@ function undoLastElement()
 		undoElement = null;
 	}
 
-	drawBoxes();
+	redrawBoxes();
 	
 }
 
@@ -212,33 +207,33 @@ function loadFromCookie()
 	if(myCookieString != null)
 	{
 		allCanvasElements = myCookieString.parseJSON();
-		drawBoxes();
+		redrawBoxes();
 	}
 }
 
 function clearCanvasElements()
 {
-	allCanvasElements.clear();
-	drawBoxes();
+	allCanvasElements = [];
+	redrawBoxes();
 }
 function PaintInit()
 {
+	$('body').keypress(function(event)
+		{
+			var key = (event.which) ? event.which - 32 : event.keyCode;
+			if(key == 90) undoLastElement(); 
+			if(key == 83) saveToCookie(); 
+			if(key == 76) loadFromCookie(); 
+			if(key == 82) clearCanvasElements();
+			console.log(key); 
+		}
+	);
 
-	Event.observe(document, 'keypress', function(event){
-		var key = (event.which) ? event.which - 32 : event.keyCode;
-		if(key == 90) undoLastElement(); 
-		if(key == 83) saveToCookie(); 
-		if(key == 76) loadFromCookie(); 
-		if(key == 82) clearCanvasElements();
-		//alert(key); 
-		});		
-	Event.observe(document, 'mousemove', onDocumentMouseMove);
-	Event.observe($('canvas'), 'mousedown', onCanvasMouseDown);
-//	Event.observe($('canvas'), 'mouseup', onCanvasMouseUp);
+	$('body').mousemove(onDocumentMouseMove);
+	$('#canvas').mousedown(onCanvasMouseDown);	
+	$('body').mouseup(onDocumentMouseUp);	
 
-	Event.observe(document,'mouseup', onDocumentMouseUp);
 	switchStrokeColorSameAsFillColor();
-
 }
 /* Functions */
 function getCursorPosition(e) {
@@ -258,3 +253,7 @@ function getCursorPosition(e) {
     }
     return cursor;
 }
+
+$('document').ready(function(){
+	PaintInit();
+});

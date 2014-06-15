@@ -3,20 +3,12 @@
 	<head>
 		<title>divpainter</title>
 		<link rel="stylesheet" href="paint.css"></link>
-		<script type="text/javascript" src="js/cookies.js"></script>
-		<script type="text/javascript" src="js/json.js"></script>
-		<script type="text/javascript" src="js/prototype.js"></script>
-		<script type="text/javascript" src="paint.js"></script>
-		<script type="text/javascript" src="http://www.google-analytics.com/urchin.js"></script>
-		<script type="text/javascript">_uacct = "UA-239145-2";	urchinTracker();</script>
 	</head>
-	<body onLoad="PaintInit();">
+	<body>
 		<div id="header">DivPainter</div>
 		<div id="page">
 
-			<div id="canvas" class="panel" onSelectStart="return false;">		
-				<div id="potentialCanvasBox"></div>
-			</div>
+			<div id="canvas" class="panel" onSelectStart="return false;"></div>
 			<div class="panel" style="left:660px;top: 10px;width:195px;height:388px;background:#f0f0f0;">
 				<div id="fillPaletteLabel">Fill Color:</div>
 				<table id="fillPalette" cellspacing="1" cellpadding="0">
@@ -128,18 +120,11 @@
 				</div>
 			</div>
 		</div>
-		<div id="copyright">Copyright (c) by David Hilowitz in 2006</div>
-	<script type="text/javascript">
-	var gaJsHost = (("https:" == document.location.protocol) ?
-	"https://ssl." : "http://www.");
-	document.write(unescape("%3Cscript src='" + gaJsHost +
-	"google-analytics.com/ga.js'
-	type='text/javascript'%3E%3C/script%3E"));
-	</script>
-	<script type="text/javascript">
-	try {
-	var pageTracker = _gat._getTracker("UA-239145-2");
-	pageTracker._trackPageview();
-	} catch(err) {}</script>
+		<div id="copyright">Copyright (c) by <a href="http://www.davehilowitz.com">David Hilowitz</a> in 2014</div>
+	
+		<script type="text/javascript" src="js/cookies.js"></script>
+		<script type="text/javascript" src="js/json.js"></script>
+		<script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+		<script type="text/javascript" src="paint.js"></script>
 	</body>
 </html>
