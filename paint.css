@@ -1,0 +1,171 @@
+body
+{
+	font-family:Arial;
+	text-align:center;
+	margin-top:20px;
+}
+/* Classes*/
+.paletteTableCell
+{
+	height:18px;
+	width:18px;
+	cursor:hand;
+	cursor:pointer;
+}
+.clear
+{
+	clear:both;
+}
+.element_pixel{
+	background:black;
+	overflow:hidden;
+	width:1px;
+	height:1px;
+	position:absolute;
+}
+.element_box{
+	background:black;
+	overflow:hidden;
+	width:1px;
+	height:1px;
+	position:absolute;
+}
+.panel
+{
+	border:1px solid #eee;
+	position:absolute;
+	border:1px solid black;
+	padding:0;
+	margin:0;
+}
+/* IDs  */
+#fillPalette
+{
+	top:10px;
+	left:10px;
+	width:174px;
+	position:relative;
+	border:1px solid black;
+	background:white;
+}
+#fillPaletteLabel
+{
+	top:8px;
+	position:relative;
+	font-size:10pt;
+	left:10px;
+}
+#currentFillColor
+{
+	top:20px;
+	left:10px;
+	width:172px;
+	height:18px;
+	position:relative;
+	border:1px solid black;
+	background:#000000;
+
+}
+#strokePalette
+{
+	top:30px;
+	left:10px;
+	width:174px;
+	height:77px;
+	position:relative;
+	border:1px solid black;
+	background:white;
+}
+#strokePaletteLabel
+{
+	top:28px;
+	position:relative;
+	font-size:10pt;
+	left:10px;
+}
+#currentStrokeColor
+{
+	top:40px;
+	left:10px;
+	width:172px;
+	height:18px;
+	position:relative;
+	border:1px solid black;
+	background:#000000;
+	text-align:center;
+	font-size:9pt;
+	padding-top:2px;
+	cursor:default;
+}
+
+#statsBox
+{
+	top:50px;
+	left:10px;
+	width:172px;
+	height:68px;
+	position:relative;
+	border:1px solid black;
+	background-color:white;
+}
+#commands
+{
+	font-size:10pt;
+	padding:0px 0px 5px 5px;
+}
+#page
+{
+	margin:auto auto;
+	border:1px solid #999;
+	width:870px;
+	height:500px;
+	text-align:left;
+	position:relative;
+	background:#ccc;
+}
+#canvas
+{
+	cursor:crosshair;
+	position:relative;
+	left: 10px;
+	top: 10px;
+	width:640px;
+	height:480px;
+	background-color:white;
+	border:1px solid black;
+}
+#potentialCanvasBox
+{
+	display:none;
+	position:absolute;
+	border:1px solid #ccc;
+	background-color:#eeeeee;
+	width:0px;
+	height:0px;
+	overflow:hidden;
+}
+#strokeSameAsFillColor
+{
+	text-align:center;
+	font-size:9pt;
+	height:18px;
+	border:1px solid #999;
+	color:#666;
+	cursor:hand;
+	cursor:pointer;
+}
+#copyright
+{
+	margin:10px auto;
+	color:#666;
+	font-size:9pt;
+}
+#header
+{
+	margin: 1px auto;
+	text-align:left;
+	width:870px;
+	color:#999;
+	font-size:24pt;
+	font-weight:bold;
+}

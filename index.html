@@ -1,0 +1,145 @@
+<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" \"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">
+<html>
+	<head>
+		<title>divpainter</title>
+		<link rel="stylesheet" href="paint.css"></link>
+		<script type="text/javascript" src="js/cookies.js"></script>
+		<script type="text/javascript" src="js/json.js"></script>
+		<script type="text/javascript" src="js/prototype.js"></script>
+		<script type="text/javascript" src="paint.js"></script>
+		<script type="text/javascript" src="http://www.google-analytics.com/urchin.js"></script>
+		<script type="text/javascript">_uacct = "UA-239145-2";	urchinTracker();</script>
+	</head>
+	<body onLoad="PaintInit();">
+		<div id="header">DivPainter</div>
+		<div id="page">
+
+			<div id="canvas" class="panel" onSelectStart="return false;">		
+				<div id="potentialCanvasBox"></div>
+			</div>
+			<div class="panel" style="left:660px;top: 10px;width:195px;height:388px;background:#f0f0f0;">
+				<div id="fillPaletteLabel">Fill Color:</div>
+				<table id="fillPalette" cellspacing="1" cellpadding="0">
+					<tr>
+						<td class="paletteTableCell" style="background:#000000" onClick="switchFillColor(this);"></td>
+						<td class="paletteTableCell" style="background:#330000" onClick="switchFillColor(this);"></td>
+						<td class="paletteTableCell" style="background:#660000" onClick="switchFillColor(this);"></td>
+						<td class="paletteTableCell" style="background:#990000" onClick="switchFillColor(this);"></td>
+						<td class="paletteTableCell" style="background:#cc0000" onClick="switchFillColor(this);"></td>
+						<td class="paletteTableCell" style="background:#ff0000" onClick="switchFillColor(this);"></td>
+						<td class="paletteTableCell" style="background:#ff3300" onClick="switchFillColor(this);"></td>
+						<td class="paletteTableCell" style="background:#ff6600" onClick="switchFillColor(this);"></td>
+						<td class="paletteTableCell" style="background:#ff9900" onClick="switchFillColor(this);"></td>
+					</tr>
+					<tr>
+						<td class="paletteTableCell" style="background:#ffcc00" onClick="switchFillColor(this);"></td>
+						<td class="paletteTableCell" style="background:#ffff00" onClick="switchFillColor(this);"></td>
+						<td class="paletteTableCell" style="background:#ccff00" onClick="switchFillColor(this);"></td>	
+						<td class="paletteTableCell" style="background:#99ff00" onClick="switchFillColor(this);"></td>					
+						<td class="paletteTableCell" style="background:#66ff00" onClick="switchFillColor(this);"></td>					
+						<td class="paletteTableCell" style="background:#33ff00" onClick="switchFillColor(this);"></td>					
+						<td class="paletteTableCell" style="background:#00ff00" onClick="switchFillColor(this);"></td>					
+						<td class="paletteTableCell" style="background:#00ff33" onClick="switchFillColor(this);"></td>					
+						<td class="paletteTableCell" style="background:#00ff66" onClick="switchFillColor(this);"></td>
+					</tr>
+					<tr>
+						<td class="paletteTableCell" style="background:#00ff99" onClick="switchFillColor(this);"></td>					
+						<td class="paletteTableCell" style="background:#00ffcc" onClick="switchFillColor(this);"></td>					
+						<td class="paletteTableCell" style="background:#00ffff" onClick="switchFillColor(this);"></td>					
+						<td class="paletteTableCell" style="background:#00ccff" onClick="switchFillColor(this);"></td>					
+						<td class="paletteTableCell" style="background:#0099ff" onClick="switchFillColor(this);"></td>					
+						<td class="paletteTableCell" style="background:#0066ff" onClick="switchFillColor(this);"></td>					
+						<td class="paletteTableCell" style="background:#0033ff" onClick="switchFillColor(this);"></td>
+						<td class="paletteTableCell" style="background:#0000ff" onClick="switchFillColor(this);"></td>					
+						<td class="paletteTableCell" style="background:#3300ff" onClick="switchFillColor(this);"></td>
+					</tr>
+					<tr>
+						<td class="paletteTableCell" style="background:#6600ff" onClick="switchFillColor(this);"></td>		
+						<td class="paletteTableCell" style="background:#9900ff" onClick="switchFillColor(this);"></td>					
+						<td class="paletteTableCell" style="background:#cc00ff" onClick="switchFillColor(this);"></td>					
+						<td class="paletteTableCell" style="background:#ff00ff" onClick="switchFillColor(this);"></td>
+						<td class="paletteTableCell" style="background:#ff33ff" onClick="switchFillColor(this);"></td>
+						<td class="paletteTableCell" style="background:#ff66ff" onClick="switchFillColor(this);"></td>
+						<td class="paletteTableCell" style="background:#ff99ff" onClick="switchFillColor(this);"></td>
+						<td class="paletteTableCell" style="background:#ffccff" onClick="switchFillColor(this);"></td>
+						<td class="paletteTableCell" style="background:#ffffff" onClick="switchFillColor(this);"></td>	
+					</tr>
+				</table>
+				<div id="currentFillColor"></div>
+				<div id="strokePaletteLabel">Stroke Color:</div>
+				<table id="strokePalette" cellspacing="1" cellpadding="0">
+					<tr>
+						<td class="paletteTableCell" style="background:#000000" onClick="switchStrokeColor(this);"></td>
+						<td class="paletteTableCell" style="background:#330000" onClick="switchStrokeColor(this);"></td>
+						<td class="paletteTableCell" style="background:#660000" onClick="switchStrokeColor(this);"></td>
+						<td class="paletteTableCell" style="background:#990000" onClick="switchStrokeColor(this);"></td>
+						<td class="paletteTableCell" style="background:#cc0000" onClick="switchStrokeColor(this);"></td>
+						<td class="paletteTableCell" style="background:#ff0000" onClick="switchStrokeColor(this);"></td>
+						<td class="paletteTableCell" style="background:#ff3300" onClick="switchStrokeColor(this);"></td>
+						<td class="paletteTableCell" style="background:#ff6600" onClick="switchStrokeColor(this);"></td>
+						<td class="paletteTableCell" style="background:#ff9900" onClick="switchStrokeColor(this);"></td>
+					</tr>
+					<tr>						
+						<td class="paletteTableCell" style="background:#ffcc00" onClick="switchStrokeColor(this);"></td>
+						<td class="paletteTableCell" style="background:#ffff00" onClick="switchStrokeColor(this);"></td>
+						<td class="paletteTableCell" style="background:#ccff00" onClick="switchStrokeColor(this);"></td>	
+						<td class="paletteTableCell" style="background:#99ff00" onClick="switchStrokeColor(this);"></td>					
+						<td class="paletteTableCell" style="background:#66ff00" onClick="switchStrokeColor(this);"></td>					
+						<td class="paletteTableCell" style="background:#00ff00" onClick="switchStrokeColor(this);"></td>					
+						<td class="paletteTableCell" style="background:#33ff00" onClick="switchStrokeColor(this);"></td>								
+						<td class="paletteTableCell" style="background:#00ff33" onClick="switchStrokeColor(this);"></td>					
+						<td class="paletteTableCell" style="background:#00ff66" onClick="switchStrokeColor(this);"></td>
+					</tr>
+					<tr>							
+						<td class="paletteTableCell" style="background:#00ff99" onClick="switchStrokeColor(this);"></td>					
+						<td class="paletteTableCell" style="background:#00ffcc" onClick="switchStrokeColor(this);"></td>					
+						<td class="paletteTableCell" style="background:#00ffff" onClick="switchStrokeColor(this);"></td>					
+						<td class="paletteTableCell" style="background:#00ccff" onClick="switchStrokeColor(this);"></td>					
+						<td class="paletteTableCell" style="background:#0099ff" onClick="switchStrokeColor(this);"></td>					
+						<td class="paletteTableCell" style="background:#0066ff" onClick="switchStrokeColor(this);"></td>					
+						<td class="paletteTableCell" style="background:#0033ff" onClick="switchStrokeColor(this);"></td>
+						<td class="paletteTableCell" style="background:#0000ff" onClick="switchStrokeColor(this);"></td>					
+						<td class="paletteTableCell" style="background:#3300ff" onClick="switchStrokeColor(this);"></td>					
+					</tr>
+					<tr>
+						<td class="paletteTableCell" style="background:#6600ff" onClick="switchStrokeColor(this);"></td>		
+						<td class="paletteTableCell" style="background:#9900ff" onClick="switchStrokeColor(this);"></td>					
+						<td class="paletteTableCell" style="background:#cc00ff" onClick="switchStrokeColor(this);"></td>					
+						<td class="paletteTableCell" style="background:#ff00ff" onClick="switchStrokeColor(this);"></td>
+						<td class="paletteTableCell" style="background:#ff33ff" onClick="switchStrokeColor(this);"></td>
+						<td class="paletteTableCell" style="background:#ff66ff" onClick="switchStrokeColor(this);"></td>
+						<td class="paletteTableCell" style="background:#ff99ff" onClick="switchStrokeColor(this);"></td>
+						<td class="paletteTableCell" style="background:#ffccff" onClick="switchStrokeColor(this);"></td>
+						<td class="paletteTableCell" style="background:#ffffff;" onClick="switchStrokeColor(this);"></td>	
+					</tr>
+					<tr>
+						<td id="strokeSameAsFillColor" colspan="9" onClick="switchStrokeColorSameAsFillColor();">Same as fill color</td>
+					</tr>
+				</table>
+				<div id="currentStrokeColor" onSelectStart="return false;"></div>
+				<div id="statsBox">
+					<div id="commands">
+						<span><b>z</b> - undo</span><br/> 
+						<span><b>r</b> - clear canvas</span><br/>
+						<span><b>s</b> - save to cookie</span><br/>
+						<span><b>l</b> - load from cookie</span><br/>
+					</div>
+					<div id="stats"></div>
+				</div>
+			</div>
+		</div>
+		<div id="copyright">Copyright (c) by David Hilowitz in 2006</div>
+	<script type="text/javascript">
+	var gaJsHost = (("https:" == document.location.protocol) ?
+	"https://ssl." : "http://www.");
+	document.write(unescape("%3Cscript src='" + gaJsHost +
+	"google-analytics.com/ga.js'
+	type='text/javascript'%3E%3C/script%3E"));
+	</script>
+	<script type="text/javascript">
+	try {
+	var pageTracker = _gat._getTracker("UA-239145-2");
+	pageTracker._trackPageview();
+	} catch(err) {}</script>
+	</body>
+</html>
